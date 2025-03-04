@@ -14,7 +14,7 @@ driver = webdriver.Chrome()
 
 # Buka halaman website
 driver.get("https://www.saucedemo.com/v1/")
-# driver.maximize_window()
+driver.maximize_window()
 
 # ---------
 # | LOGIN |
@@ -78,7 +78,11 @@ close_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "bm-cross-b
 burger_button = driver.find_element(By.CLASS_NAME, "bm-burger-button").click()
 logout_button = wait.until(EC.element_to_be_clickable((By.ID, "logout_sidebar_link"))).click()
 
-# Dropdown filter (Possitive case #10)
+# -----------------
+# | VERIFY FILTER |
+# -----------------
+
+# Dropdown filter (Possitive case #11)
 username_field = driver.find_element(By.ID, "user-name").send_keys("standard_user")
 password_field = driver.find_element(By.ID, "password").send_keys("secret_sauce")
 login_button = driver.find_element(By.ID, "login-button").click()
@@ -94,6 +98,19 @@ dropdown.select_by_value("za")
 time.sleep(5)
 dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
 dropdown.select_by_value("az")
+time.sleep(5)
+
+# ------------------
+# | PRODUCT DETAIL |
+# ------------------
+# Product detail (Possitive case #12)
+product_detail = driver.find_element(By.CLASS_NAME, "inventory_item_name").click()
+time.sleep(5)
+product_detail_add = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").click()
+time.sleep(7)
+product_detail_add = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").click()
+time.sleep(7)
+product_detail_back = driver.find_element(By.CLASS_NAME, "inventory_details_back_button").click()
 
 input("tekan enter untuk keluar...")
 
