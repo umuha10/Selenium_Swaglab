@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 import time
 
 # Path ke WebDriver (sesuaikan dengan lokasi file chromedriver)
@@ -13,7 +14,7 @@ driver = webdriver.Chrome()
 
 # Buka halaman website
 driver.get("https://www.saucedemo.com/v1/")
-driver.maximize_window()
+# driver.maximize_window()
 
 # ---------
 # | LOGIN |
@@ -35,7 +36,7 @@ time.sleep(2)
 # Login (Negative Case #3)
 driver.refresh()
 username_field = driver.find_element(By.ID, "user-name").send_keys("standard_user")
-password_field = driver.find_element(By.ID, "password").send_keys("123")
+password_field= driver.find_element(By.ID, "password").send_keys("123")
 login_button = driver.find_element(By.ID, "login-button").click()
 time.sleep(2)
 
@@ -77,6 +78,22 @@ close_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "bm-cross-b
 burger_button = driver.find_element(By.CLASS_NAME, "bm-burger-button").click()
 logout_button = wait.until(EC.element_to_be_clickable((By.ID, "logout_sidebar_link"))).click()
 
+# Dropdown filter (Possitive case #10)
+username_field = driver.find_element(By.ID, "user-name").send_keys("standard_user")
+password_field = driver.find_element(By.ID, "password").send_keys("secret_sauce")
+login_button = driver.find_element(By.ID, "login-button").click()
+time.sleep(5)
+dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+dropdown.select_by_value("hilo")
+time.sleep(5)
+dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+dropdown.select_by_value("lohi")
+time.sleep(5)
+dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+dropdown.select_by_value("za")
+time.sleep(5)
+dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+dropdown.select_by_value("az")
 
 input("tekan enter untuk keluar...")
 
