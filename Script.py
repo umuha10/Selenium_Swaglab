@@ -108,9 +108,39 @@ product_detail = driver.find_element(By.CLASS_NAME, "inventory_item_name").click
 time.sleep(5)
 product_detail_add = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").click()
 time.sleep(7)
-product_detail_add = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").click()
+product_detail_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").click()
 time.sleep(7)
 product_detail_back = driver.find_element(By.CLASS_NAME, "inventory_details_back_button").click()
+time.sleep(5)
+
+# --------------------------
+# | PRODUCT ADD AND REMOVE |
+# --------------------------
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+time.sleep(3)
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+time.sleep(3)
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(3) > div.pricebar > button").click()
+time.sleep(3)
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button").click()
+time.sleep(3)
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(5) > div.pricebar > button").click()
+time.sleep(3)
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(6) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(3) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(5) > div.pricebar > button").click()
+time.sleep(3)
+product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(6) > div.pricebar > button").click()
+time.sleep(3)
+
 
 input("tekan enter untuk keluar...")
 
