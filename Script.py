@@ -193,19 +193,39 @@ time.sleep(2)
 # | VERIFY SHOPPING DETAIL |
 # ------------------------
 
-shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg").click()
-continue_shopping = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_secondary").click()
-product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+shopping_cart.click()
+
+continue_shopping = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_secondary")
+continue_shopping.click()
+
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button")
+product_add.click()
 time.sleep(2)
-product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button").click()
+
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button")
+product_add.click()
 time.sleep(2)
-product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+
+product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button")
+product_add.click()
 time.sleep(2)
-shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg").click()
-shopping_detail_remove = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_list > div:nth-child(4) > div.cart_item_label > div.item_pricebar > button").click()
+
+shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+shopping_cart.click()
+time.sleep(2)
+
+shopping_detail_remove = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_list > div:nth-child(4) > div.cart_item_label > div.item_pricebar > button")
+shopping_detail_remove.click()
+time.sleep(2)
+
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
-cancel_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a").click()
+time.sleep(2)
+
+cancel_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a")
+cancel_checkout.click()
+
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
 
