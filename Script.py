@@ -229,7 +229,20 @@ cancel_checkout.click()
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
 
-# Send Information 
+# Send Information (Negatif Case #)
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("")
+
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("")
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("")
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+# Send Information (Possitive Case #)
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("Salsa")
 
