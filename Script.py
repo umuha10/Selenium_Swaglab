@@ -189,16 +189,19 @@ time.sleep(3)
 product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(6) > div.pricebar > button").click()
 time.sleep(2)
 
-# ------------------------
-# | VERIFY SHOPPING DETAIL |
-# ------------------------
+# ----------------------------
+# | FINISH CHECKOUT SHOPPING |
+# ----------------------------
 
+#Membuka keranjang
 shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
 shopping_cart.click()
 
+#Kembali membuka halaman all item
 continue_shopping = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_secondary")
 continue_shopping.click()
 
+#menambahkan produk
 product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button")
 product_add.click()
 time.sleep(2)
@@ -211,25 +214,30 @@ product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div >
 product_add.click()
 time.sleep(2)
 
+#membuka keranjang belanja
 shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
 shopping_cart.click()
 time.sleep(2)
 
+#menghapus item
 shopping_detail_remove = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_list > div:nth-child(4) > div.cart_item_label > div.item_pricebar > button")
 shopping_detail_remove.click()
 time.sleep(2)
 
+#Melanjutkan ke halaman checkout:your information
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
 time.sleep(2)
 
+#verifikasi tombol cancel pada halaman checkout:your information
 cancel_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a")
 cancel_checkout.click()
 
+#Melanjutkan ke halaman checkout:your information
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
 
-# Send Information (Negatif Case #)
+# Send Information (Negatif Case #) --semua fiel dikosongkan
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("")
 
@@ -242,7 +250,38 @@ postal_code.send_keys("")
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
 
+# Send Information (Negative case #) --hanya nama depan yang diisi
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("lala")
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+time.sleep(2)
+
+# -- hanya nama belakang yang diisi
+driver.refresh()
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("lala")
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+time.sleep(2)
+
+# -- hanya post code yang diisi
+driver.refresh()
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("123")
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+time.sleep(2)
+
 # Send Information (Possitive Case #)
+driver.refresh()
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("Salsa")
 
@@ -251,9 +290,14 @@ last_name.send_keys("Khairina")
 
 postal_code = driver.find_element(By.ID, "postal-code")
 postal_code.send_keys("56768")
+time.sleep(2)
 
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
+
+# Finish Shopping
+finish_shopping = driver.find_element(By.CSS_SELECTOR, "#checkout_summary_container > div > div.summary_info > div.cart_footer > a.btn_action.cart_button")
+finish_shopping.click()
 
 input("tekan enter untuk keluar...")
 
