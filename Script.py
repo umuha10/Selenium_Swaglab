@@ -290,14 +290,10 @@ time.sleep(2)
 cancel_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a")
 cancel_checkout.click()
 
-
-
-
-#Melanjutkan ke halaman checkout:your information
+# TC_029 User continue checkout without add information (Negative Case)
 checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
 checkout.click()
 
-# Send Information (Negatif Case #) --semua fiel dikosongkan
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("")
 
@@ -309,27 +305,27 @@ postal_code.send_keys("")
 
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
+time.sleep(2)
 
-# Send Information (Negative case #) --hanya nama depan yang diisi
+# TC_030 User continue checkout just by filling in first name (Negative Case)
+driver.refresh()
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("lala")
 
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
-
 time.sleep(2)
 
-# -- hanya nama belakang yang diisi
+# TC_031 User continue checkout just by filling in last name (Negative Case)
 driver.refresh()
 last_name = driver.find_element(By.ID, "last-name")
 last_name.send_keys("lala")
 
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
-
 time.sleep(2)
 
-# -- hanya post code yang diisi
+# TC_032 User continue checkout just by filling in postal code (Negative Case)
 driver.refresh()
 
 postal_code = driver.find_element(By.ID, "postal-code")
@@ -337,11 +333,66 @@ postal_code.send_keys("123")
 
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
-
 time.sleep(2)
 
-# Send Information (Possitive Case #)
+# TC_033 User continue checkout by filling first nama and last name without postal code (Negative Case)
 driver.refresh()
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("Salsa")
+
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("Khairina")
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+time.sleep(2)
+
+# TC_034 User continue checkout by filling in first name and postal code (Negative Case)
+driver.refresh()
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("Salsa")
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("56768")
+time.sleep(2)
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+# TC_035 User continue checkout by fillin in last name and postal code (Negative Case)
+driver.refresh()
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("Khairina")
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("56768")
+time.sleep(2)
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+# TC_036 User continue checkout by filling postal code besides number (Negative Case)
+driver.refresh()
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("Salsa")
+
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("Khairina")
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("code")
+time.sleep(2)
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
+# TC_037 User checkout by filling right information
+shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+shopping_cart.click()
+
+checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+checkout.click()
+
 first_name = driver.find_element(By.ID, "first-name")
 first_name.send_keys("Salsa")
 
@@ -355,9 +406,55 @@ time.sleep(2)
 continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
 continue_checkout.click()
 
-# Finish Shopping
+# --------------------------------------------------
+# | VERIFY "CHECKOUT: OVERVIEW" PAGE FUNCTIONALITY |
+# --------------------------------------------------
+
+# TC_038 User cancel checkout product
+cancel_finish = driver.find_element(By.CSS_SELECTOR, "#checkout_summary_container > div > div.summary_info > div.cart_footer > a.cart_cancel_link.btn_secondary")
+cancel_finish.click()
+
+# TC_039 User finish checout product
+shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+shopping_cart.click()
+
+checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+checkout.click()
+
+first_name = driver.find_element(By.ID, "first-name")
+first_name.send_keys("Salsa")
+
+last_name = driver.find_element(By.ID, "last-name")
+last_name.send_keys("Khairina")
+
+postal_code = driver.find_element(By.ID, "postal-code")
+postal_code.send_keys("56768")
+time.sleep(2)
+
+continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+continue_checkout.click()
+
 finish_shopping = driver.find_element(By.CSS_SELECTOR, "#checkout_summary_container > div > div.summary_info > div.cart_footer > a.btn_action.cart_button")
 finish_shopping.click()
+
+# -------------------------------
+# | VERIFY FOOTER FUNCTIONALITY |
+# -------------------------------
+
+# TC_040 User open twitter
+twitter = driver.find_element(By.CLASS_NAME, "social_twitter")
+twitter.click()
+time.sleep(2)
+
+# TC_041 User open facebook
+facebook = driver.find_element(By.CLASS_NAME, "social_facebook")
+facebook.click()
+time.sleep(2)
+
+# TC_042 User open linkedIn
+linkedIn = driver.find_element(By.CLASS_NAME, "social_linkedin")
+linkedIn.click()
+time.sleep(2)
 
 input("tekan enter untuk keluar...")
 
