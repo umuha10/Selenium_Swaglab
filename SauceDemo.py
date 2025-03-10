@@ -23,6 +23,10 @@ def log_result(test_case, expected, actual):
 
 # Example test case with logging
 try:
+    # ---------
+    # | LOGIN |
+    # ---------
+
     # TC_001 User empties username and password (Negative Case)
     username_field = driver.find_element(By.ID, "user-name")
     username_field.send_keys("")
@@ -34,6 +38,7 @@ try:
     login_button.click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Username is required"
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_001", expected_validation, actual_validation)
@@ -50,6 +55,7 @@ try:
     login_button.click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Username is required"
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_002", expected_validation, actual_validation)
@@ -65,6 +71,7 @@ try:
     login_button = driver.find_element(By.ID, "login-button").click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Password is required"
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_003", expected_validation, actual_validation)
@@ -80,6 +87,7 @@ try:
     login_button = driver.find_element(By.ID, "login-button").click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Username and password do not match any user in this service"
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_004", expected_validation, actual_validation)
@@ -95,6 +103,7 @@ try:
     login_button = driver.find_element(By.ID, "login-button").click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Username and password do not match any user in this service"
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_005", expected_validation, actual_validation)
@@ -110,6 +119,7 @@ try:
     login_button = driver.find_element(By.ID, "login-button").click()
     time.sleep(2)
 
+    # --Compare expected and actual results
     expected_validation = "Epic sadface: Sorry, this user has been locked out."
     actual_validation = driver.find_element(By.CSS_SELECTOR, "#login_button_container > div > form > h3").text
     log_result("TC_006", expected_validation, actual_validation)
@@ -131,6 +141,40 @@ try:
     actual_text = driver.find_element(By.CLASS_NAME, "product_label").text
     log_result("TC_007", expected_text, actual_text)
 
+    # -------------------------------
+    # | VERIFY SIDEBAR FUNCTIONALITY|
+    # -------------------------------
+
+    dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+    dropdown.select_by_value("hilo")
+    time.sleep(2)
+
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+    time.sleep(2)
+
+    # TC_008 User click button "Reset App State" (Positive case)
+    burger_button = driver.find_element(By.CLASS_NAME, "bm-burger-button")
+    burger_button.click()
+
+    wait = WebDriverWait(driver, 10) #--menunggu sampai element tampil
+    reset_app = wait.until(EC.element_to_be_clickable((By.ID, "reset_sidebar_link")))
+    reset_app.click()
+    time.sleep(2)
+
+    # --Compare expected and actual results (1)
+    # actual_cart_empty = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container > a > span")
+    # expected_cart_empty = not actual_cart_empty
+    # log_result("TC_008 (1)", expected_cart_empty, actual_cart_empty)
+
+    # --Compare expected and actual results (1)
+    filter_clear = driver.find_element(By.CLASS_NAME, "product_sort_container")
+    expected_filter = "az"
+    actual_filter = filter_clear.get_attribute("value")
+    log_result("TC_008 (2)", expected_filter, actual_filter)
+    
+    
     # Add more test cases with similar logging
     # ...
 
