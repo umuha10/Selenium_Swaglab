@@ -1,0 +1,101 @@
+No. Test Case,Test Scenario,Test Case ,Type,Expected Result,Conclusion Test Case
+TC_001,User login with empty credentials,User empties username and password,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_002,,User empties username,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_003,,User empeties password,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_004,,User fills in correct username and wrong password,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_005,User login with invalid credential,User fills in wrong username and correct password,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_006,Locked user login,User fills username with locked-out user,Negative case,"- The system should display an error message
+- The user should not be able to proceed.",
+TC_007,User login with valid credential,User fills in correct username and password,Positive case,"- The system should allow the user to log in successfully.
+- The user is redirected to the product page.",
+TC_008,Verify sidebar,"User click button ""Reset App State""",Positive case,"The user remains logged in, but any applied filters, sorting, or added items are removed.",
+TC_009,,"User click button ""close""",Positive case,The sidebar menu closes,
+TC_010,,"User click button ""About""",Positive case,"- The system redirects the user to the Sauce Labs About page (e.g., https://saucelabs.com/).
+- A new tab may open if configured that way.",
+TC_011,,"User click button ""All Items""",Positive case,"- The user is redirected to the main product listing page.
+- All items should be visible.",
+TC_012,,"User click button ""Logout""",Positive case,"- The user is logged out of the application.
+- The system redirects the user to the login page.
+- Any session data (such as cart items,filter) should be cleared unless persisted by the application.",
+TC_013,Verify filter,User sort product by price (high to low),Positive case,"- The product list should be sorted in descending order based on price.
+- The most expensive item should appear at the top, and the least expensive item should be at the bottom.",
+TC_014,,User sort product by price (low to high),Positive case,"- The product list should be sorted in ascending order based on price.
+- The least expensive item should appear at the top, and the most expensive item should be at the bottom.",
+TC_015,,User sort product by name (Z to A),Positive case,"- The product list should be sorted in descending order alphabetically (reverse alphabetical order).
+- Items starting with ""Z"" should appear at the top, and those starting with ""A"" should be at the bottom.",
+TC_016,,User sort product by name (A to Z),Positive case,"- The product list should be sorted in ascending order alphabetically.
+- Items starting with ""A"" should appear at the top, and those starting with ""Z"" should be at the bottom.",
+TC_017,Verify  product page functionality,User add product to cart,Positive case,"- The selected product is added to the cart.
+- The cart icon in the top-right corner updates to reflect the new item count.
+- The ""Add to Cart"" button for the selected product changes to ""Remove"" (or an equivalent indicator that the item is in the cart).",
+TC_018,,User remove product from cart,Positive case,"- The selected product is removed from the cart.
+- The cart icon updates to reflect the new item count (decreasing by one or disappearing if the cart is empty).
+- The ""Remove"" button changes back to ""Add to Cart.""
+- If the user removes the item from the cart page, the item disappears from the cart list. If the cart is emptied, a message such as ""Your cart is empty"" may be displayed.",
+TC_019,Verify product detail functionality,User open the product,Positive case,"- The user is redirected to the product details page.
+- The page displays the product name, description, price, and an ""Add to Cart"" button.
+- The product image is visible.",
+TC_020,,User add product to cart,Positive case,"- The product is successfully added to the cart.
+- The cart icon in the top-right corner updates to reflect the new item count.
+- The ""Add to Cart"" button changes to ""Remove.""",
+TC_021,,User remove product from cart,Positive case,"- The product is successfully removed from the cart.
+- The cart icon updates to reflect the new item count (decreasing by one or disappearing if the cart is empty).
+- The ""Remove"" button changes back to ""Add to Cart.""",
+TC_022,,User back to product page,Positive case,"- The user is redirected back to the main product listing page.
+- Any previously applied sorting or filters remain unchanged.
+- The product that was added and removed reflects the updated cart status.",
+TC_023,"Verify ""Your Cart"" page functionality",User open the cart,Positive case,"- The user is redirected to the cart page.
+- The cart page displays a list of added products (if any), including product name, price, and quantity.
+- The total number of items in the cart is shown in the cart icon.
+- ""Remove"" buttons are available for each item.
+""Checkout"" and ""Continue Shopping"" buttons are visible.",
+TC_024,,"User back to product page with click ""continue shopping"" button",Positive case,"- The user is redirected back to the main product listing page.
+- Previously added items remain in the cart.
+- Any applied sorting or filters cleared.",
+TC_025,,User remove product from cart,Positive case,"- The selected product is removed from the cart.
+- The cart icon updates to reflect the new item count (decreasing by one or disappearing if the cart is empty).
+- If all products are removed, the cart page displays a message such as ""Your cart is empty.""",
+TC_026,,User checkout with empties product,Positive case,"- The system prevents the user from proceeding.
+- An error message is displayed, such as ""Your cart is empty. Please add items before checking out.""
+- The user remains on the cart page.",
+TC_027,,User checkout with product added,Positive case,The user is redirected to the checkout information page.,
+TC_028,"Verify ""Checkout: Your Information"" page functionality",User cancels checkout,Positive case,"- The user is redirected back to the cart page.
+- All previously added items remain in the cart.",
+TC_029,,User attempts to continue checkout without adding any information,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: First Name is required.""",
+TC_030,,User continues checkout by filling in only the first name,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: Last Name is required.""",
+TC_031,,User continues checkout by filling in only the last name,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: Postal Code is required.""",
+TC_032,,User continues checkout by filling in only the postal code,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: First Name is required.""",
+TC_033,,User continue checkout by filling in first nama and last name without postal code,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: Postal Code is required.""",
+TC_034,,User continues checkout by filling in the first name and last name but without the postal code,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: Last Name is required.""",
+TC_035,,User continues checkout by filling in the last name and postal code but without the first name,Negative case,"- The system prevents the user from proceeding.
+- An error message appears: ""Error: First Name is required.""",
+TC_036,,User continues checkout by filling in a postal code that contains characters other than numbers,Negative case,"- The system may prevent the user from proceeding if validation is enforced.
+- An error message may appear: ""Error: Invalid Postal Code. Please enter numbers only.""
+- If the system does not validate it strictly, the user may proceed.",
+TC_037,,"User checks out by filling in the correct information (First Name, Last Name, and Numeric Postal Code)",Positive case,"- The user is redirected to the payment overview page.
+- The page displays a summary of the selected product, including the product name, price, quantity, and total cost.
+- There are ""Finish"" and ""Cancel"" buttons.",
+TC_038,"Verify ""Checkout: Overview"" Functionality",User cancels checkout,Positive case,"- The user is redirected back to the cart page.
+- All previously added items remain in the cart.
+- No changes are made to the order.",
+TC_039,,User finishes checkout,Positive case,"- The user is redirected to the checkout complete page.
+- A confirmation message appears: ""Thank you for your order!""
+- An image of a confirmation icon (e.g., a checkmark) is displayed.
+- The cart is emptied, and the user can return to the home page by clicking ""Back Home.""",
+TC_040,Verify footer fuctionality,User open twitter,Positive case,"- A new browser tab opens with the official Swag Labs Twitter page.
+- The user is redirected to Twitter's website (e.g., https://twitter.com).",
+TC_041,,User open facebook,Positive case,"- A new browser tab opens with the official Swag Labs Facebook page.
+- The user is redirected to Facebook's website (e.g., https://www.facebook.com).",
+TC_042,,User open linkedIn,Positive case,"- A new browser tab opens with the official Swag Labs LinkedIn page.
+- The user is redirected to LinkedIn's website (e.g., https://www.linkedin.com).",
