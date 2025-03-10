@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import time
+from selenium.common.exceptions import NoSuchElementException
 
 # Initialize the driver
 driver = webdriver.Chrome()
@@ -164,9 +165,15 @@ try:
     time.sleep(2)
 
     # --Compare expected and actual results (1)
-    # actual_cart_empty = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container > a > span")
-    # expected_cart_empty = not actual_cart_empty
-    # log_result("TC_008 (1)", expected_cart_empty, actual_cart_empty)
+    def check_element_presence(driver, selector, test_case):
+        try:
+            driver.find_element(By.CSS_SELECTOR, selector)
+            log_result(test_case, "Not Present", "Present")
+        except NoSuchElementException:
+            log_result(test_case, "Not Present", "Not Present")
+
+    # Example usage
+    check_element_presence(driver, "#shopping_cart_container > a > span", "TC_008 (1)")
 
     # --Compare expected and actual results (1)
     filter_clear = driver.find_element(By.CLASS_NAME, "product_sort_container")
