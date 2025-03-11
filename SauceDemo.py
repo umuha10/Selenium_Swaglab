@@ -263,7 +263,7 @@ try:
     dropdown.select_by_value("lohi")
     time.sleep(2)
 
-    product_prices = driver.find_elements(By.CLASS_NAME, "inventory_item_price") #-----ambil semua harga produk-----
+    product_prices = driver.find_elements(By.CLASS_NAME, "inventory_item_price") #collect all product prices
     price_list = [float(price.text.replace("$", "")) for price in product_prices] #konversi harga kedalam angka float untuk dibandingkan
     sorted_correctly = price_list == sorted(price_list) #validasi apakah harga sudah diurutkan dari yang terendah ke tertinngi
 
@@ -274,22 +274,22 @@ try:
     dropdown.select_by_value("za")
     time.sleep(2)
 
-    filter_dropdown = driver.find_element(By.CLASS_NAME, "product_sort_container")
-    expected_hl = "za"
-    actual_hl = filter_dropdown.get_attribute("value")
+    product_names = driver.find_elements(By.CLASS_NAME, "inventory_item_name") #collect all product names
+    name_list = [name.text for name in product_names] #extracts the text from each webelement
+    sorted_correctly = name_list == sorted(name_list, reverse=True) #sorts the list in ascending order (Z-A) by default.
 
-    log_result("TC_015", expected_hl, actual_hl)
+    log_result("TC_015", True, sorted_correctly)
 
-    # TC_016 User sort product by name ((A to Z) (Possitive case)
+    # TC_016 User sort product by name (A to Z) (Possitive case)
     dropdown = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
     dropdown.select_by_value("az")
     time.sleep(2)
 
-    filter_dropdown = driver.find_element(By.CLASS_NAME, "product_sort_container")
-    expected_hl = "az"
-    actual_hl = filter_dropdown.get_attribute("value")
+    product_names = driver.find_elements(By.CLASS_NAME, "inventory_item_name") #collect all product names
+    name_list = [name.text for name in product_names] #extracts the text from each webelement
+    sorted_correctly = name_list == sorted(name_list) #sorts the list in ascending order (A-Z) by default.
 
-    log_result("TC_016", expected_hl, actual_hl)
+    log_result("TC_016", True, sorted_correctly)
 
     # Add more test cases with similar logging
     # ...
