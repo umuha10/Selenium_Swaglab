@@ -291,6 +291,63 @@ try:
 
     log_result("TC_016", True, sorted_correctly)
 
+    # -------------------------------------
+    # | VERIFY PRODUCT PAGE FUNCTIONALITY |
+    # -------------------------------------
+
+    # TC_017 User add product to cart (Possitive case)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(3) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(5) > div.pricebar > button").click()
+    time.sleep(2)
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(6) > div.pricebar > button").click()
+    time.sleep(2)
+
+    #--1 validate the cart icon update with item count
+    cart_bedge = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container > a > span").text
+    expected_cart_count = "6"
+    log_result("TC_017 (1)", expected_cart_count, cart_bedge)
+
+    #--2 validate the "Add to Cart" button changes to "Remove"
+    actual_btn = driver.find_element(By.CSS_SELECTOR,"#inventory_container > div > div:nth-child(2) > div.pricebar > button").text
+    expected_btn = "REMOVE"
+    log_result("TC_017 (2)", expected_btn, actual_btn)
+
+    # TC_018 User remove product from cart (Possitive case)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button").click()
+    time.sleep(2)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button").click()
+    time.sleep(2)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(3) > div.pricebar > button").click()
+    time.sleep(2)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button").click()
+    time.sleep(2)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(5) > div.pricebar > button").click()
+    time.sleep(3)
+    product_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(6) > div.pricebar > button").click()
+    time.sleep(2)
+
+    #--1 validate the cart icon update with item count
+    def check_element_presence(driver, selector, test_case):
+        try:
+            driver.find_element(By.CSS_SELECTOR, selector)
+            log_result(test_case, "Not Present", "Present")
+        except NoSuchElementException:
+            log_result(test_case, "Not Present", "Not Present")
+
+    check_element_presence(driver, "#shopping_cart_container > a > span", "TC_018 (1)")
+
+    #--2 validate the "Remove"  button changes to "Add to Cart"
+    actual_btn = driver.find_element(By.CSS_SELECTOR,"#inventory_container > div > div:nth-child(2) > div.pricebar > button").text
+    expected_btn = "ADD TO CART"
+    log_result("TC_018 (2)", expected_btn, actual_btn)
+
     # Add more test cases with similar logging
     # ...
 
