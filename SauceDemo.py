@@ -348,6 +348,71 @@ try:
     expected_btn = "ADD TO CART"
     log_result("TC_018 (2)", expected_btn, actual_btn)
 
+    # ---------------------------------------
+    # | VERIFY PRODUCT DETAIL FUNCTIONALITY |
+    # ---------------------------------------
+
+    # TC_019 User open the product (Possitive Case)
+    product_detail = driver.find_element(By.CLASS_NAME, "inventory_item_name")
+    product_name_expected = product_detail.text
+    product_detail.click()
+    time.sleep(2)
+
+    #- The user is redirected to the product details page.
+    actual_url = driver.current_url
+    expected_url = "https://www.saucedemo.com/v1/inventory-item.html?id=4"
+    log_result("TC_019 (1)", expected_url, actual_url)
+
+    #- The page displays the product name, description, price, and an "Add to Cart" button.
+    product_name_element = driver.find_element(By.CLASS_NAME, "inventory_details_name")
+    product_name_displayed = product_name_element.is_displayed()
+    log_result("TC_019 (2)", True, product_name_displayed)
+
+    description = driver.find_element(By.CLASS_NAME, "inventory_details_desc").text
+    log_result("TC_019 (2)", bool(description), True)
+
+    product_price = driver.find_element(By.CLASS_NAME, "inventory_details_price").text
+    log_result("TC_019 (2)", bool(product_price), True)
+
+    expected_btn = "ADD TO CART"
+    actual_btn = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").text
+    log_result("TC_019 (2)", expected_btn, actual_btn)
+
+    # - The product image is visible.
+    product_img = driver.find_element(By.CLASS_NAME, "inventory_details_img")
+    displayed_img = product_img.is_displayed()
+    log_result("TC_019 (3)", True, displayed_img)
+
+    # TC_20 User add product to cart (Possitive Case)
+    product_detail_add = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button")
+    product_detail_add.click()
+    time.sleep(2)
+
+    # - The product is successfully added to the cart.
+    # - The cart icon in the top-right corner updates to reflect the new item count.
+    cart_bedge = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container > a > span").text
+    expected_cart_count = "1"
+    log_result("TC_020 (1)", expected_cart_count, cart_bedge)
+
+    # - The "Add to Cart" button changes to "Remove."
+    actual_btn = driver.find_element(By.CSS_SELECTOR,"#inventory_item_container > div > div > div > button").text
+    expected_btn = "REMOVE"
+    log_result("TC_020 (2)", expected_btn, actual_btn)
+
+    # TC_21 User remove product from cart (Possitive Case)
+    product_detail_remove = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button")
+    product_detail_remove.click()
+    time.sleep(2)
+
+    def check_element_presence(driver, selector, test_case):
+        try:
+            driver.find_element(By.CSS_SELECTOR, selector)
+            log_result(test_case, "Not Present", "Present")
+        except NoSuchElementException:
+            log_result(test_case, "Not Present", "Not Present")
+    check_element_presence(driver, "#shopping_cart_container > a > span", "TC_021 (1)")
+
+
     # Add more test cases with similar logging
     # ...
 
