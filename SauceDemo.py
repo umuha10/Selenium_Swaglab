@@ -718,9 +718,105 @@ try:
     actual_url = driver.current_url
     log_result("TC_037", expected_url, actual_url)
     
+    # --------------------------------------------------
+    # | VERIFY "CHECKOUT: OVERVIEW" PAGE FUNCTIONALITY |
+    # --------------------------------------------------
 
-    # Add more test cases with similar logging
-    # ...
+    # TC_038 User cancel checkout product
+    cancel_finish = driver.find_element(By.CSS_SELECTOR, "#checkout_summary_container > div > div.summary_info > div.cart_footer > a.cart_cancel_link.btn_secondary")
+    cancel_finish.click()
+
+    expected_url = "https://www.saucedemo.com/v1/inventory.html"
+    actual_url = driver.current_url
+    log_result("TC_038", expected_url,actual_url)
+
+    # TC_039 User finish checkout product
+    shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+    shopping_cart.click()
+
+    checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+    checkout.click()
+
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("Salsa")
+
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("Khairina")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("56768")
+    time.sleep(2)
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+
+    finish_shopping = driver.find_element(By.CSS_SELECTOR, "#checkout_summary_container > div > div.summary_info > div.cart_footer > a.btn_action.cart_button")
+    finish_shopping.click()
+
+    expected_url = "https://www.saucedemo.com/v1/checkout-complete.html"
+    actual_url = driver.current_url
+    log_result("TC_038", expected_url,actual_url)
+
+    # -------------------------------
+    # | VERIFY FOOTER FUNCTIONALITY |
+    # -------------------------------
+
+    # TC_040 User open twitter
+    twitter = driver.find_element(By.CLASS_NAME, "social_twitter")
+    twitter.click()
+    time.sleep(2)
+
+    window_handles = driver.window_handles
+
+    if len(window_handles) > 1:
+        driver.switch_to.window(window_handles[1])
+        actual_url = driver.current_url
+        expected_url = "https://twitter.com/saucelabs" 
+
+        log_result("TC_040", expected_url, actual_url)
+
+        driver.close()
+        driver.switch_to.window(window_handles[0])
+    else:
+        log_result("TC_040", "New tab open", "No new tab detected")
+
+    # TC_041 User open facebook
+    facebook = driver.find_element(By.CLASS_NAME, "social_facebook")
+    facebook.click()
+    time.sleep(2)
+
+    window_handles = driver.window_handles
+
+    if len(window_handles) > 1:
+        driver.switch_to.window(window_handles[1])
+        actual_url = driver.current_url
+        expected_url = "https://facebook.com/saucelabs" 
+
+        log_result("TC_041", expected_url, actual_url)
+
+        driver.close()
+        driver.switch_to.window(window_handles[0])
+    else:
+        log_result("TC_041", "New tab open", "No new tab detected")
+
+    # TC_042 User open linkedIn
+    linkedIn = driver.find_element(By.CLASS_NAME, "social_linkedin")
+    linkedIn.click()
+    time.sleep(2)
+
+    window_handles = driver.window_handles
+
+    if len(window_handles) > 1:
+        driver.switch_to.window(window_handles[1])
+        actual_url = driver.current_url
+        expected_url = "https://linkedin.com/in/saucelabs" 
+
+        log_result("TC_040", expected_url, actual_url)
+
+        driver.close()
+        driver.switch_to.window(window_handles[0])
+    else:
+        log_result("TC_042", "New tab open", "No new tab detected")
 
 finally:
     driver.quit()
