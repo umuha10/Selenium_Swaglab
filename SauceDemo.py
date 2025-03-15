@@ -366,17 +366,17 @@ try:
     #- The page displays the product name, description, price, and an "Add to Cart" button.
     product_name_element = driver.find_element(By.CLASS_NAME, "inventory_details_name")
     product_name_displayed = product_name_element.is_displayed()
-    log_result("TC_019 (2)", True, product_name_displayed)
+    log_result("TC_019 (2.1)", True, product_name_displayed)
 
     description = driver.find_element(By.CLASS_NAME, "inventory_details_desc").text
-    log_result("TC_019 (2)", bool(description), True)
+    log_result("TC_019 (2.2)", bool(description), True)
 
     product_price = driver.find_element(By.CLASS_NAME, "inventory_details_price").text
-    log_result("TC_019 (2)", bool(product_price), True)
+    log_result("TC_019 (2.3)", bool(product_price), True)
 
     expected_btn = "ADD TO CART"
     actual_btn = driver.find_element(By.CSS_SELECTOR, "#inventory_item_container > div > div > div > button").text
-    log_result("TC_019 (2)", expected_btn, actual_btn)
+    log_result("TC_019 (2.4)", expected_btn, actual_btn)
 
     # - The product image is visible.
     product_img = driver.find_element(By.CLASS_NAME, "inventory_details_img")
@@ -412,6 +412,135 @@ try:
             log_result(test_case, "Not Present", "Not Present")
     check_element_presence(driver, "#shopping_cart_container > a > span", "TC_021 (1)")
 
+    # TC_22 User back to product page (Possitive Case)
+    product_detail_back = driver.find_element(By.CLASS_NAME, "inventory_details_back_button")
+    product_detail_back.click()
+    time.sleep(2)
+
+    expected_url = "https://www.saucedemo.com/v1/inventory.html"
+    actual_url = driver.current_url
+    log_result("TC_022", expected_url, actual_url)
+
+    # ----------------------------------------
+    # | VERIFY "YOUR CART" PAGE FUNCTIONALITY|
+    # ----------------------------------------
+
+    # TC_023 User open the cart (Possitive Case)
+    shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+    shopping_cart.click()
+    time.sleep(2)
+
+    expected_url = "https://www.saucedemo.com/v1/cart.html"
+    actual_url = driver.current_url
+    log_result("TC_023", expected_url, actual_url)
+
+    # TC_026 User checkout with empties product (Possitive Case)
+    checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+    checkout.click()
+    time.sleep(2)
+
+    expected_url = "https://www.saucedemo.com/v1/cart.html"
+    actual_url = driver.current_url
+    log_result("TC_026", expected_url, actual_url)
+    
+    # TC_024 User back to product page with click "continue shopping" button (Possitive Case)
+    shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+    shopping_cart.click()
+    time.sleep(2)
+    
+    continue_shopping = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_secondary")
+    continue_shopping.click()
+    time.sleep(2)
+
+    expected_url = "https://www.saucedemo.com/v1/inventory.html"
+    actual_url = driver.current_url
+    log_result("TC_024", expected_url, actual_url)
+
+    #-----Add product for test-----
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(1) > div.pricebar > button")
+    product_add.click()
+    time.sleep(2)
+
+    product_name_element = driver.find_element(By.CSS_SELECTOR, "#item_4_title_link > div")
+    product_name_displayed = product_name_element.is_displayed()
+    log_result("TC_023 (1.1)", True, product_name_displayed)
+
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(4) > div.pricebar > button")
+    product_add.click()
+    time.sleep(2)
+
+    product_name_element = driver.find_element(By.CSS_SELECTOR, "#item_5_title_link > div")
+    product_name_displayed = product_name_element.is_displayed()
+    log_result("TC_023 (1.2)", True, product_name_displayed)
+
+    product_add = driver.find_element(By.CSS_SELECTOR, "#inventory_container > div > div:nth-child(2) > div.pricebar > button")
+    product_add.click()
+    time.sleep(2)
+
+    product_name_element = driver.find_element(By.CSS_SELECTOR, "#item_0_title_link > div")
+    product_name_displayed = product_name_element.is_displayed()
+    log_result("TC_023 (1.3)", True, product_name_displayed)
+
+    # TC_025 User remove product from cart (Possitive Case)
+    shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+    shopping_cart.click()
+    time.sleep(2)
+
+    shopping_detail_remove = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_list > div:nth-child(4) > div.cart_item_label > div.item_pricebar > button")
+    shopping_detail_remove.click()
+    time.sleep(2)
+
+    try:
+        actual_item = driver.find_element(By.CSS_SELECTOR,"#item_5_title_link > div")
+        item_removed = False
+    except:
+        item_removed = True
+    
+    expected_removed = True
+    log_result("TC_018 (2)", expected_removed, item_removed)
+
+    # TC_027 User checkout with product added (Possitive Case)
+    checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+    checkout.click()
+    time.sleep(2)
+
+    expected_url = "https://www.saucedemo.com/v1/checkout-step-one.html"
+    actual_url = driver.current_url
+    log_result("TC_027 (1)", expected_url, actual_url)
+
+    try:
+        first_name = driver.find_element(By.ID, "first-name")
+        first_name_displayed = True
+
+        last_name = driver.find_element(By.ID, "last-name")
+        last_name_displayed = True
+        
+        postal_code = driver.find_element(By.ID, "last-name")
+        postal_code_displayed = True
+
+        btn_continue = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+        btn_continue_displayed = True
+
+        btn_cancel = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a")
+        btn_cancel_displayed = True
+    except:
+        first_name_displayed = False
+        last_name_displayed = False
+        postal_code_displayed = False
+        btn_continue_displayed = False
+        btn_cancel_displayed = False
+
+    expected_first_name_displayed = True
+    expected_last_name_displayed = True
+    expected_postal_code_displayed = True
+    expected_btn_continue_displayed = True
+    expected_btn_cancel_displayed = True
+    
+    log_result("TC_027 (2)", expected_first_name_displayed, first_name_displayed)
+    log_result("TC_027 (3)", expected_first_name_displayed, first_name_displayed)
+    log_result("TC_027 (4)", expected_first_name_displayed, first_name_displayed)
+    log_result("TC_027 (5)", expected_btn_continue_displayed, btn_continue_displayed)
+    log_result("TC_027 (6)", expected_btn_cancel_displayed, btn_cancel_displayed)
 
     # Add more test cases with similar logging
     # ...
