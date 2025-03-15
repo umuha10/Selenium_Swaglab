@@ -542,6 +542,183 @@ try:
     log_result("TC_027 (5)", expected_btn_continue_displayed, btn_continue_displayed)
     log_result("TC_027 (6)", expected_btn_cancel_displayed, btn_cancel_displayed)
 
+    # ----------------------------------------------------------
+    # | VERIFY "CHECKOUT: YOUR INFORMATION" PAGE FUNCTIONALITY |
+    # ----------------------------------------------------------
+
+    # TC_028 User cancel checkout product (Possitive Case)
+    cancel_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > a")
+    cancel_checkout.click()
+
+    expected_url = "https://www.saucedemo.com/v1/cart.html"
+    actual_url = driver.current_url
+    log_result("TC_028", expected_url, actual_url)
+
+    # TC_029 User continue checkout without add information (Negative Case)
+    checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+    checkout.click()
+
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("")
+
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("")
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+    time.sleep(2)
+
+    expected_error = "Error: First Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_029", expected_error, actual_error)
+
+    # TC_030 User continue checkout just by filling in first name (Negative Case)
+    driver.refresh()
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("lala")
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+    time.sleep(2)
+
+    expected_error = "Error: Last Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_030", expected_error, actual_error)
+
+    # TC_031 User continue checkout just by filling in last name (Negative Case)
+    driver.refresh()
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("lala")
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+    time.sleep(2)
+
+    expected_error = "Error: First Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_031", expected_error, actual_error)
+
+    # TC_032 User continue checkout just by filling in postal code (Negative Case)
+    driver.refresh()
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("123")
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+    time.sleep(2)
+
+    expected_error = "Error: First Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_032", expected_error, actual_error)
+
+    # TC_033 User continue checkout by filling first nama and last name without postal code (Negative Case)
+    driver.refresh()
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("Salsa")
+
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("Khairina")
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+    time.sleep(2)
+    
+    expected_error = "Error: Postal Code is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_033", expected_error, actual_error)
+
+    # TC_034 User continue checkout by filling in first name and postal code (Negative Case)
+    driver.refresh()
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("Salsa")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("56768")
+    time.sleep(2)
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+
+    expected_error = "Error: Last Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_034", expected_error, actual_error)
+
+    # TC_035 User continue checkout by fillin in last name and postal code (Negative Case)
+    driver.refresh()
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("Khairina")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("56768")
+    time.sleep(2)
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+
+    expected_error = "Error: First Name is required"
+    actual_error = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3").text
+    log_result("TC_035", expected_error, actual_error)
+
+    # TC_036 User continue checkout by filling postal code besides number (Negative Case)
+    driver.refresh()
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("Salsa")
+
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("Khairina")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("code")
+    time.sleep(2)
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+
+    try:
+        error_element = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > h3")
+        error_message = error_element.text
+        actual_error_displayed = True
+    except:
+        error_message = "No error displayed"
+        actual_error_displayed = False
+
+    expected_error_displayed = True
+    expected_error_message = "Error: Postal code must be a number"
+
+    if actual_error_displayed:
+        log_result("TC_036", expected_error_message, error_message) 
+    else:
+        log_result("TC_036",expected_error_message, error_message )
+
+    # TC_037 User checkout by filling right information
+    shopping_cart = driver.find_element(By.CSS_SELECTOR,"#shopping_cart_container > a > svg")
+    shopping_cart.click()
+
+    checkout = driver.find_element(By.CSS_SELECTOR, "#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")
+    checkout.click()
+
+    first_name = driver.find_element(By.ID, "first-name")
+    first_name.send_keys("Salsa")
+
+    last_name = driver.find_element(By.ID, "last-name")
+    last_name.send_keys("Khairina")
+
+    postal_code = driver.find_element(By.ID, "postal-code")
+    postal_code.send_keys("56768")
+    time.sleep(2)
+
+    continue_checkout = driver.find_element(By.CSS_SELECTOR, "#checkout_info_container > div > form > div.checkout_buttons > input")
+    continue_checkout.click()
+
+    expected_url = "https://www.saucedemo.com/v1/checkout-step-two.html"
+    actual_url = driver.current_url
+    log_result("TC_037", expected_url, actual_url)
+    
+
     # Add more test cases with similar logging
     # ...
 
